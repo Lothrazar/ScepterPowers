@@ -1,19 +1,44 @@
 package com.lothrazar.scepterpowers;
 
+import com.lothrazar.scepterpowers.proxy.CommonProxy;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = ModScepterPowers.MODID, useMetadata=true)
 public class ModScepterPowers
 {
-    public static final String MODID = "scepterpowers";
-    
+    public static final String MODID = "scepterpowers";	
+    @Instance(value = MODID)
+	public static ModScepterPowers instance;
+	@SidedProxy(clientSide="com.lothrazar.scepterpowers.proxy.ClientProxy", serverSide="com.lothrazar.scepterpowers.proxy.CommonProxy")
+	public static CommonProxy proxy;   
+	public static CreativeTabs tabSamsContent = new CreativeTabs("tabScepter") 
+	{ 
+		@Override
+		public Item getTabIconItem() 
+		{ 
+			return Items.stick;//placeholder
+		}
+	};   
+	@EventHandler
+    public void preInit(FMLPreInitializationEvent  event)
+    {
+		//cfg = new ConfigFile(new Configuration(event.getSuggestedConfigurationFile()));
+    }
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-		// some example code
-        System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
+		ItemRegistry.register();
+
     }
+    
+   
 }
