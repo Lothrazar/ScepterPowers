@@ -4,10 +4,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.ItemRegistry;
 import com.lothrazar.scepterpowers.ModScepterPowers; 
+import com.lothrazar.scepterpowers.UtilMoveBlock;
 
 public class ItemWandPiston extends ItemWandAbstract{
 
@@ -21,14 +24,17 @@ public class ItemWandPiston extends ItemWandAbstract{
 	
 	}
 	
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-		if(worldIn.isRemote){
-			System.out.println("right click on server");
+		if(worldIn.isRemote == false){
+		
+			System.out.println("click");
+			UtilMoveBlock.moveBlock(worldIn, playerIn, pos, side);
+			
 		}
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
-    }
-
+		
+    	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
+    } 
 	public void addRecipe() {
 
 		GameRegistry.addRecipe(new ItemStack(ItemRegistry.wand_piston), 

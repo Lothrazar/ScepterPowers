@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World; 
 
@@ -14,6 +15,7 @@ public class UtilMoveBlock
 { 
 	public static ArrayList<Block> ignoreList = new ArrayList<Block>();
 	private static String ignoreListFromConfig = "";
+	public static final int U = 2;
 	 
 	private static void translateCSV()
 	{
@@ -66,8 +68,8 @@ public class UtilMoveBlock
 				//they swap places
 				//world.destroyBlock(posMoveToHere, false);
 				world.destroyBlock(pos, false);
-				world.setBlockState(posMoveToHere, hit);//pulls the block towards the player
-				 
+				world.setBlockState(posMoveToHere, hit, U);//pulls the block towards the player
+				
 				player.swingItem();
 			} 
 		} 
@@ -91,4 +93,22 @@ public class UtilMoveBlock
 			world.spawnParticle(type, x + (world.rand.nextDouble() - 0.5D) * (double)0.8, y + world.rand.nextDouble() * (double)1.5 - (double)0.1, z + (world.rand.nextDouble() - 0.5D) * (double)0.8, 0.0D, 0.0D, 0.0D);
 		} 
     }
+
+	/**
+	 * wrap moveBlockTo but detect the destination based on the side hit
+	 * @param worldIn
+	 * @param player
+	 * @param pos
+	 * @param face
+	 */
+	public static void moveBlock(World worldIn, EntityPlayer player, BlockPos pos, EnumFacing face) {
+		
+		BlockPos posTowardsPlayer = pos.offset(face);
+		
+		BlockPos posAwayPlayer = pos.offset(face.getOpposite());
+		 
+		BlockPos posMoveToHere = player.isSneaking() ? posTowardsPlayer : posAwayPlayer;
+		
+		moveBlockTo(worldIn,player,pos,posMoveToHere);
+	}
 }
