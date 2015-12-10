@@ -2,7 +2,6 @@ package com.lothrazar.scepterpowers;
 
 import com.lothrazar.scepterpowers.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
@@ -28,17 +27,17 @@ public class ModScepterPowers
 			return Items.stick;//placeholder
 		}
 	};   
+	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent  event)
     {
 		//cfg = new ConfigFile(new Configuration(event.getSuggestedConfigurationFile()));
     }
+	
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
 		ItemRegistry.register();
-
+		BlockRegistry.register();
     }
-    
-   
 }

@@ -3,12 +3,10 @@ package com.lothrazar.scepterpowers;
 import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World; 
 
 public class UtilMoveBlock 
@@ -45,54 +43,35 @@ public class UtilMoveBlock
 		ignoreListFromConfig = csv;
 	} 
  
-	public static void moveBlockTo(World world, EntityPlayer player,BlockPos pos, BlockPos posMoveToHere)
+	public static boolean moveBlockTo(World world, EntityPlayer player,BlockPos pos, BlockPos posMoveToHere)
 	{
 		IBlockState hit = world.getBlockState(pos);
 		translateCSV();
 
 		if(hit == null || ignoreList.contains(hit.getBlock()))
 		{
-			return;
+			return false;
 		}
 		
 		if(world.isAirBlock(posMoveToHere) && world.isBlockModifiable(player, pos)) 
 		{
-			if(world.isRemote) 
-			{
-				spawnParticle(world, EnumParticleTypes.CRIT_MAGIC, pos); 
-			}
-			else
-			{  
-				playSoundAt(player, "random.wood_click");
+		 
+			//playSoundAt(player, "random.wood_click");
 
-				//they swap places
-				//world.destroyBlock(posMoveToHere, false);
+			//they swap places
+			//world.destroyBlock(posMoveToHere, false);
+			if(world.isRemote == false){//just to avoid duplicating the sound effect
+			
 				world.destroyBlock(pos, false);
-				world.setBlockState(posMoveToHere, hit, U);//pulls the block towards the player
-				
-				player.swingItem();
-			} 
+			}
+			world.setBlockState(posMoveToHere, hit, U);//pulls the block towards the player
+			world.markBlockForUpdate(posMoveToHere);
+			player.swingItem();
+	 
+			return true;
 		} 
+		else return false;
 	}
-
-	public static void playSoundAt(Entity player, String sound)
-	{ 
-		player.worldObj.playSoundAtEntity(player, sound, 1.0F, 1.0F);
-	}
- 
-	public static void spawnParticle(World world, EnumParticleTypes type, BlockPos pos)
-	{
-		spawnParticle(world,type,pos.getX(),pos.getY(),pos.getZ());
-	}
-
-	public static void spawnParticle(World world, EnumParticleTypes type, double x, double y, double z)
-	{ 
-		//http://www.minecraftforge.net/forum/index.php?topic=9744.0
-		for(int countparticles = 0; countparticles <= 10; ++countparticles)
-		{
-			world.spawnParticle(type, x + (world.rand.nextDouble() - 0.5D) * (double)0.8, y + world.rand.nextDouble() * (double)1.5 - (double)0.1, z + (world.rand.nextDouble() - 0.5D) * (double)0.8, 0.0D, 0.0D, 0.0D);
-		} 
-    }
 
 	/**
 	 * wrap moveBlockTo but detect the destination based on the side hit
@@ -101,7 +80,7 @@ public class UtilMoveBlock
 	 * @param pos
 	 * @param face
 	 */
-	public static void moveBlock(World worldIn, EntityPlayer player, BlockPos pos, EnumFacing face) {
+	public static BlockPos moveBlock(World worldIn, EntityPlayer player, BlockPos pos, EnumFacing face) {
 		
 		BlockPos posTowardsPlayer = pos.offset(face);
 		
@@ -109,6 +88,11 @@ public class UtilMoveBlock
 		 
 		BlockPos posMoveToHere = player.isSneaking() ? posTowardsPlayer : posAwayPlayer;
 		
-		moveBlockTo(worldIn,player,pos,posMoveToHere);
+		if(moveBlockTo(worldIn,player,pos,posMoveToHere)){
+			return posMoveToHere;
+		}
+		else{
+			return null;
+		}
 	}
 }
