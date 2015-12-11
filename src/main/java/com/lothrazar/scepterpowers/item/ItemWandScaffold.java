@@ -10,19 +10,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.BlockRegistry;
 
-public class ItemWandScaffold extends ItemWandBase{
+public class ItemWandScaffold extends ItemWandBase {
 
-	public static int DURABILITY;
+	public static int DURABILITY = 999;
 	public ItemWandScaffold(){
-		super();
-		this.setMaxDamage(DURABILITY);
+		super(DURABILITY);
 	}
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ){
 		BlockPos offset = pos.offset(side);
 		
-		worldIn.setBlockState(offset, BlockRegistry.block_fragile.getDefaultState());
+		if(worldIn.setBlockState(offset, BlockRegistry.block_fragile.getDefaultState())){
+
+			this.onUseSuccess(playerIn, stack);
+		}
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     }

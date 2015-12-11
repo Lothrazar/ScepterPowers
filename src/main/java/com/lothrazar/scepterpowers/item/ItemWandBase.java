@@ -13,14 +13,21 @@ import net.minecraft.world.World;
 
 public class ItemWandBase extends Item{
 
-	public ItemWandBase(){
+	public ItemWandBase(int uses){
 		this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setMaxStackSize(1);
+		this.setMaxDamage(uses);
 	}
 	
 	public void addRecipe(){
 		
 	}
+	
+	public void onUseSuccess(EntityPlayer player,ItemStack stack){
+		
+		stack.damageItem(1, player);
+	}
+	
 	
 	//TODO: these mods are just examples of what we MIGHT use.
 	

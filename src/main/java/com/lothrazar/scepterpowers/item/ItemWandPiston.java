@@ -13,11 +13,10 @@ import com.lothrazar.scepterpowers.UtilMoveBlock;
 
 public class ItemWandPiston extends ItemWandBase{
 
-	public static int DURABILITY;
+	public static int DURABILITY = 999;
 	public ItemWandPiston()
 	{
-		super();
-		this.setMaxDamage(DURABILITY);
+		super(DURABILITY); 
 	}
 
 	@Override
@@ -30,13 +29,14 @@ public class ItemWandPiston extends ItemWandBase{
 		if(resultPosition != null){
 			//then it was a success
 			spawnParticle(worldIn, EnumParticleTypes.CRIT_MAGIC, resultPosition); 
+			this.onUseSuccess(playerIn, stack);
 		}
 			
 
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     } 
- 
+	
 	private void spawnParticle(World world, EnumParticleTypes type, BlockPos pos)
 	{ 
 		double x=pos.getX(),y=pos.getY(),z=pos.getZ();

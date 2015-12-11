@@ -2,21 +2,20 @@ package com.lothrazar.scepterpowers.item;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.google.common.collect.ImmutableList;
 import com.lothrazar.scepterpowers.Const;
 
-public class ItemWandRotate extends ItemWandBase {
+public class ItemWandRotateState extends ItemWandBase {
 
-	public ItemWandRotate(){
-		super();
+	public static int DURABILITY = 999;
+	//this item is creative only since it hits ALL block states
+	//including wool color, stone types, slab variants, etc
+	public ItemWandRotateState(){
+		super(DURABILITY);
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class ItemWandRotate extends ItemWandBase {
 		if(stack == null){return false;}
 		IBlockState clicked = worldIn.getBlockState(pos);
 		if(clicked == null || clicked.getBlock() == null){return false;}
-//	System.out.println(clicked.getClass().getName());  net.minecraft.block.state.BlockState$StateImplementation
+
 		ImmutableList<IBlockState> states = clicked.getBlock().getBlockState().getValidStates();
 
 		if(states == null || states.size() <= 1){
@@ -36,9 +35,6 @@ public class ItemWandRotate extends ItemWandBase {
 		IBlockState firstState = null;
 		boolean foundCurrent = false;
 		IBlockState nextState = null;
-		
-		//successfully found a list of all block states
-		//int i = 0;
 		for(IBlockState s : states){
 			if(firstState == null){firstState = s;}
 			
@@ -58,18 +54,9 @@ public class ItemWandRotate extends ItemWandBase {
 	
 		if(nextState != null){
 			worldIn.setBlockState(pos, nextState, Const.NOTIFY);
+			this.onUseSuccess(playerIn, stack);
 		}
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     }
-
-	@Override
-	public void addRecipe() {
-
-		GameRegistry.addRecipe(new ItemStack(this), 
-				"  p", 
-				" i ", 
-				"b  ", 
-				'p', Blocks.piston, 'i', Blocks.web, 'b', Items.blaze_rod);
-	} 
 }
