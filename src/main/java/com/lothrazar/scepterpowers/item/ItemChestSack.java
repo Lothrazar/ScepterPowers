@@ -35,7 +35,8 @@ public class ItemChestSack extends Item
 		
 		if(worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof IInventory){
 
-			
+
+			sortToExisting((TileEntityChest)worldIn.getTileEntity(pos),stack);
 			
 		}
 		else{
@@ -45,10 +46,8 @@ public class ItemChestSack extends Item
 			
 			if(worldIn.isAirBlock(offset) == false){return false;}
 			
-			worldIn.setBlockState(offset, Blocks.chest.getDefaultState());
 			
-			
-			sortFromSackToChestEntity((TileEntityChest)worldIn.getTileEntity(offset),stack,offset);
+			createAndFillChest(playerIn,stack,pos);
 			
 			playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
 		}
@@ -72,8 +71,9 @@ public class ItemChestSack extends Item
         list.add("Stacks: " + EnumChatFormatting.GREEN +stacks);          
 	}   
 	  
-	public void sortFromSackToChestEntity(IInventory chest, ItemStack held, BlockPos pos)
+	public void sortToExisting(IInventory chest, ItemStack held)
   	{
+		System.out.println("sortFromSackToChestEntity");
 		if(held.getTagCompound() == null) {held.setTagCompound(new NBTTagCompound());}
 	  
 		int[] itemids = held.getTagCompound().getIntArray(KEY_ITEMIDS);
@@ -81,6 +81,7 @@ public class ItemChestSack extends Item
 		int[] itemqty = held.getTagCompound().getIntArray(KEY_ITEMQTY);
 		
 		if(itemids == null){return;}
+		System.out.println("itemids not null");
  
   		int totalItemsMoved = 0; 
   		int totalSlotsFreed = 0;
@@ -106,6 +107,7 @@ public class ItemChestSack extends Item
 		//inventory and chest has 9 rows by 3 columns, never changes. same as 64 max stack size
 		for(int islotChest = 0; islotChest < chest.getSizeInventory(); islotChest++)
 		{
+			System.out.println("islotChest"+islotChest);
 			chestItem = chest.getStackInSlot(islotChest);
 		
 			if(chestItem == null) { continue; } // empty chest slot
@@ -184,10 +186,11 @@ public class ItemChestSack extends Item
 			ModScepterPowers.logger.log(Level.WARN, "null nbt problem in itemchestsack");
 			return;
 		}
-	 
+ 
 		entityPlayer.worldObj.setBlockState(pos,  Blocks.chest.getDefaultState());
 		
-		TileEntityChest chest = (TileEntityChest)entityPlayer.worldObj.getTileEntity(pos);  
+		//is also a TileEntityChest
+		IInventory chest = (IInventory)entityPlayer.worldObj.getTileEntity(pos);  
 	
 		int item;
 		int meta;
@@ -216,8 +219,9 @@ public class ItemChestSack extends Item
 	{
 		EntityItem entityItem = new EntityItem(worldObj, pos.getX(),pos.getY(),pos.getZ(), stack); 
 
- 		if(worldObj.isRemote==false)//do not spawn a second 'ghost' one on client side
+ 		if(worldObj.isRemote==false){//do not spawn a second 'ghost' one on client side
  			worldObj.spawnEntityInWorld(entityItem);
+ 		}
     	return entityItem;
 	}
 	public static String getItemStackNBT(ItemStack item, String prop) 

@@ -36,15 +36,11 @@ public class ItemWandChest extends ItemWandBase {
 		TileEntity tile = worldIn.getTileEntity(pos);
 		IInventory invo = (IInventory)tile;
 		
-		ItemStack chestItem;  
-		int chestMax;
-		 
+		ItemStack chestItem;   
 		int ROWS = 3;
 		int COLS = 9;
-		int START_CHEST = 0;
-		int START_INV = 9;//because we are ignoring the item hotbar, we skip the first row this way
-		int END_CHEST =  START_CHEST + ROWS * COLS;
-		int END_INV = START_INV + ROWS * COLS;
+		int START_CHEST = 0; 
+		int END_CHEST =  START_CHEST + ROWS * COLS; 
 
 		ItemStack drop = new ItemStack(ItemRegistry.item_chestsack ,1,0); 
 		
@@ -95,22 +91,20 @@ public class ItemWandChest extends ItemWandBase {
 		drop.getTagCompound().setString("count",""+count);
 		drop.getTagCompound().setString("stacks",""+stacks);
 	 	 
-		playerIn.entityDropItem(drop, 1); 
-			 
+		if(worldIn.isRemote == false){
+			playerIn.entityDropItem(drop, 1); 
+		}
 		 //the 2 here is just a magic flag it passes to the world to propogate the event
 	
 		playerIn.worldObj.setBlockToAir(pos); 
 
 		//playerIn.swingItem();
-		playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
- 
+	
 		//Util.spawnParticle(entityPlayer.worldObj, EnumParticleTypes.CRIT, pos);
 		
 		//Util.playSoundAt(entityPlayer, "random.wood_click");
 		
  
-
-		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     } 
 
