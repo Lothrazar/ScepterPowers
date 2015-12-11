@@ -20,6 +20,7 @@ public class ItemWandRotateProperty extends ItemWandBase {
 		super(DURABILITY);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ){
 		
@@ -27,31 +28,26 @@ public class ItemWandRotateProperty extends ItemWandBase {
 		if(stack == null){return false;}
 		IBlockState clicked = worldIn.getBlockState(pos);
 		if(clicked == null || clicked.getBlock() == null){return false;}
-		
-		System.out.println("property hit");
-		
-		//copied from BlockMushroom.rotateBlock
-		//clicked.getProperties()
-		/* IBlockState state = world.getBlockState(pos);
-        for (IProperty prop : (java.util.Set<IProperty>)state.getProperties().keySet())
-        {
-            if (prop.getName().equals("variant"))
-            {
-                world.setBlockState(pos, state.cycleProperty(prop));
-                return true;
-            }
-        }*/
-		
-//	System.out.println(clicked.getClass().getName());  net.minecraft.block.state.BlockState$StateImplementation
 	
 		if(clicked.getBlock().rotateBlock(worldIn, pos, side)){
-
+			//for example, BlockMushroom.rotateBlock uses this, and hay bales use it to swap the 'axis'
+			System.out.println("rotateBlock success");
 			this.onUseSuccess(playerIn, stack);
 		}
 		else{
 			System.out.println("rotateBlock FAILS -> look into properties");
 			//any property that is not variant?
-			
+			for (IProperty prop : (java.util.Set<IProperty>)clicked.getProperties().keySet())
+	        {
+				//since slabs do not use rotateBlock, swap the up or down half being used
+	            if (prop.getName().equals("half"))
+	            {
+	                worldIn.setBlockState(pos, clicked.cycleProperty(prop));
+	                return true;
+	            }
+	            //do not do variant, color, wet,  check_decay, decayable, stage, type
+	            //TODO: add a whitelist where "variant" is allowed, such as sandstone ?
+	        }
 		}
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 

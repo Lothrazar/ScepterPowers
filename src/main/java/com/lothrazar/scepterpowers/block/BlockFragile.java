@@ -22,7 +22,7 @@ public class BlockFragile extends Block
 	public BlockFragile() 
 	{
 		super(Material.wood);
-		this.setCreativeTab(ModScepterPowers.tabSamsContent);
+		//this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setTickRandomly(true);
 		this.setHardness(0F);
 		this.setResistance(0F); 
