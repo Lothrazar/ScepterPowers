@@ -13,6 +13,8 @@ public class ItemRegistry {
 	public static ItemWandScaffold wand_scaffold;
 	public static ItemWandRotateState wand_rotate_creative;
 	public static ItemWandRotateProperty wand_rotate_survival;
+	public static ItemWandChest wand_chest;
+	public static ItemChestSack item_chestsack;
 
 	public static void registerItem(Item item, String name) {
 		item.setUnlocalizedName(name);
@@ -37,5 +39,11 @@ public class ItemRegistry {
 		
 		wand_rotate_survival = new ItemWandRotateProperty();
 		registerWand(wand_rotate_survival, "wand_rotate_survival");
+		
+		wand_chest = new ItemWandChest();
+		registerWand(wand_chest, "wand_chest");
+
+		item_chestsack = new ItemChestSack();
+		registerItem(item_chestsack, "item_chestsack");
 	}
 }
