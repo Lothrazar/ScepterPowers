@@ -1,5 +1,6 @@
 package com.lothrazar.scepterpowers.item;
 
+import com.lothrazar.scepterpowers.ModScepterPowers;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,9 +11,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public abstract class ItemWandAbstract extends Item{
+public class ItemWandBase extends Item{
+
+	public ItemWandBase(){
+		this.setCreativeTab(ModScepterPowers.tabSamsContent);
+		this.setMaxStackSize(1);
+	}
 	
-	public abstract void addRecipe();
+	public void addRecipe(){
+		
+	}
 	
 	//TODO: these mods are just examples of what we MIGHT use.
 	

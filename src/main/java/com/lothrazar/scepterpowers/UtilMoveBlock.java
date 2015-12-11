@@ -13,7 +13,6 @@ public class UtilMoveBlock
 { 
 	public static ArrayList<Block> ignoreList = new ArrayList<Block>();
 	private static String ignoreListFromConfig = "";
-	public static final int U = 2;
 	 
 	private static void translateCSV()
 	{
@@ -64,7 +63,7 @@ public class UtilMoveBlock
 			
 				world.destroyBlock(pos, false);
 			}
-			world.setBlockState(posMoveToHere, hit, U);//pulls the block towards the player
+			world.setBlockState(posMoveToHere, hit, Const.NOTIFY);//pulls the block towards the player
 			world.markBlockForUpdate(posMoveToHere);
 			player.swingItem();
 	 

@@ -1,8 +1,7 @@
 package com.lothrazar.scepterpowers;
 
 import java.util.ArrayList;
-import com.lothrazar.scepterpowers.item.ItemWandPiston;
-import com.lothrazar.scepterpowers.item.ItemWandScaffold;
+import com.lothrazar.scepterpowers.item.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -12,28 +11,27 @@ public class ItemRegistry {
 
 	public static ItemWandPiston wand_piston;
 	public static ItemWandScaffold wand_scaffold;
+	public static ItemWandRotate wand_rotate;
 
 	public static void registerItem(Item item, String name) {
 		item.setUnlocalizedName(name);
 		GameRegistry.registerItem(item, name);
 		items.add(item);
 	}
+	public static void registerWand(ItemWandBase item, String name) {
+		registerItem(item,name);
+		item.addRecipe();
+	}
 
 	public static void register() {
 
 		wand_piston = new ItemWandPiston();
-		ItemRegistry.registerItem(wand_piston, "wand_piston");
-		wand_piston.addRecipe();
+		registerWand(wand_piston, "wand_piston");
 
 		wand_scaffold = new ItemWandScaffold();
-		ItemRegistry.registerItem(wand_scaffold, "wand_scaffold");
-		wand_scaffold.addRecipe();
-		//wand rotate: 
-		/*
-	    public ImmutableList<IBlockState> getValidStates()
-	    {
-	        return this.validStates;
-	    }*/
-
+		registerWand(wand_scaffold, "wand_scaffold");
+		
+		wand_rotate = new ItemWandRotate();
+		registerWand(wand_rotate, "wand_rotate");
 	}
 }

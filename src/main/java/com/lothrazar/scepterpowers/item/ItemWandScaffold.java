@@ -9,19 +9,16 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.BlockRegistry;
-import com.lothrazar.scepterpowers.ItemRegistry;
-import com.lothrazar.scepterpowers.ModScepterPowers;
 
-public class ItemWandScaffold extends ItemWandAbstract{
+public class ItemWandScaffold extends ItemWandBase{
 
 	public static int DURABILITY;
 	public ItemWandScaffold(){
 		super();
-		this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setMaxDamage(DURABILITY);
-		this.setMaxStackSize(1);
 	}
-	
+
+	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ){
 		BlockPos offset = pos.offset(side);
 		
@@ -33,7 +30,7 @@ public class ItemWandScaffold extends ItemWandAbstract{
 	@Override
 	public void addRecipe() {
 
-		GameRegistry.addRecipe(new ItemStack(ItemRegistry.wand_piston), 
+		GameRegistry.addRecipe(new ItemStack(this), 
 				"  p", 
 				" i ", 
 				"b  ", 

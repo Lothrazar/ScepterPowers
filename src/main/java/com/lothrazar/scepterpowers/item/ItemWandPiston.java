@@ -9,22 +9,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import com.lothrazar.scepterpowers.ItemRegistry;
-import com.lothrazar.scepterpowers.ModScepterPowers; 
 import com.lothrazar.scepterpowers.UtilMoveBlock;
 
-public class ItemWandPiston extends ItemWandAbstract{
+public class ItemWandPiston extends ItemWandBase{
 
 	public static int DURABILITY;
 	public ItemWandPiston()
 	{
 		super();
-		this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setMaxDamage(DURABILITY);
-		this.setMaxStackSize(1);
-	
 	}
-	
+
+	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 		//if(worldIn.isRemote == false){
@@ -41,7 +37,7 @@ public class ItemWandPiston extends ItemWandAbstract{
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     } 
  
-	public static void spawnParticle(World world, EnumParticleTypes type, BlockPos pos)
+	private void spawnParticle(World world, EnumParticleTypes type, BlockPos pos)
 	{ 
 		double x=pos.getX(),y=pos.getY(),z=pos.getZ();
 		
@@ -52,9 +48,10 @@ public class ItemWandPiston extends ItemWandAbstract{
 		} 
     }
 
+	@Override
 	public void addRecipe() {
 
-		GameRegistry.addRecipe(new ItemStack(ItemRegistry.wand_piston), 
+		GameRegistry.addRecipe(new ItemStack(this), 
 				"  p", 
 				" i ", 
 				"b  ", 
