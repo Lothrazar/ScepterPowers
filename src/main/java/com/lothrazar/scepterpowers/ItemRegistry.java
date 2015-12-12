@@ -16,7 +16,8 @@ public class ItemRegistry {
 	public static ItemWandChest wand_chest;
 	public static ItemChestSack item_chestsack;
 	public static ItemWandCollect wand_collect;
-
+	public static ItemStepHeight wand_step;
+	
 	public static void registerItem(Item item, String name) {
 		item.setUnlocalizedName(name);
 		GameRegistry.registerItem(item, name);
@@ -47,6 +48,9 @@ public class ItemRegistry {
 		wand_collect = new ItemWandCollect();
 		registerWand(wand_collect, "wand_collect");
 
+		wand_step = new ItemStepHeight();
+		registerWand(wand_step, "wand_step");
+		
 		item_chestsack = new ItemChestSack();
 		registerItem(item_chestsack, "chest_sack");
 	}
