@@ -3,6 +3,7 @@ package com.lothrazar.scepterpowers.item;
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -45,6 +46,13 @@ public class ItemWandCollect extends ItemWandBase {
 			moved++;
 		}
 		
+		List<EntityXPOrb> foundExp =  worldIn.getEntitiesWithinAABB(EntityXPOrb.class, AxisAlignedBB.fromBounds(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius));
+
+		for(EntityXPOrb eitem : foundExp){
+			Vector3.setEntityMotionFromVector(eitem, x, y,z,0.4F);
+			moved++;
+		}
+		
 		if(moved > 0){
 			this.onCastSuccess();
 		}
@@ -57,10 +65,17 @@ public class ItemWandCollect extends ItemWandBase {
 	@Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-		cast(worldIn,entityIn.getPosition());
+		//TODO: split into 2 items? one that does the onHit, and one that does just by holding it?
+		//if we let it always cast, it works anywhere in your whole inventory
+		if(entityIn instanceof EntityPlayer && ((EntityPlayer)entityIn).inventory.currentItem == itemSlot){
+
+			//or we could also require its in armor slot or something too
+			cast(worldIn,entityIn.getPosition());
+		}
 		
     	super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
     }
+	
 	@Override
 	public void addRecipe() {
 
