@@ -25,7 +25,7 @@ public class ItemWandLaunch extends ItemWandBase {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn){
 		
-		if(playerIn.isSneaking()){
+		if(playerIn.isSneaking() && worldIn.isRemote == false){
 			this.toggleMode(itemStackIn);
 			this.onSuccess(playerIn, itemStackIn);
 		}
@@ -109,8 +109,8 @@ public class ItemWandLaunch extends ItemWandBase {
 	}
 	private void toggleMode(ItemStack stack){
 		int next = this.getMode(stack) + 1;
-		next++;
-		if(next == MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
+
+		if(next >= MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
 
 		System.out.println(next+ "_toggle");
 		this.setMode(stack,next);
