@@ -27,52 +27,50 @@ public class ItemWandLaunch extends ItemWandBase {
 		
 		if(playerIn.isSneaking()){
 			this.toggleMode(itemStackIn);
+		}
+		else{
 			
-			return super.onItemRightClick(itemStackIn, worldIn, playerIn);
-		}
-		
-		//STill in proof of concept stage
-		//on item use means only when you hit a block
-		//meaning you could also hit face, get direcition, etc.
-		//thank you REF http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/modification-development/1435515-how-i-can-do-to-move-to-where-i-look
-		//first reset falling/jumping
-		playerIn.motionY = 0;
-		playerIn.fallDistance = 0;
-
-		float f = power();
-		//double velX = playerIn.getLookVec().xCoord/2, velY = 0.7, velZ = playerIn.getLookVec().xCoord/2;
-		double velX = (double)(-MathHelper.sin(playerIn.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float)Math.PI) * f);
-		double velZ = (double)( MathHelper.cos(playerIn.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float)Math.PI) * f);
-		double velY = (double)(-MathHelper.sin((playerIn.rotationPitch) / 180.0F * (float)Math.PI) * f);
-		
-		switch(getMode(itemStackIn)){
-		case MODE_LAUNCH:
-			//launch the player up and forward at minimum 30 degrees regardless of look vector
-			if(velY < 0){
-				velY *= -1;//first invert direction
+			//thank you REF http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/modification-development/1435515-how-i-can-do-to-move-to-where-i-look
+			//first reset falling/jumping
+			playerIn.motionY = 0;
+			playerIn.fallDistance = 0;
+	
+			float f = power();
+			//double velX = playerIn.getLookVec().xCoord/2, velY = 0.7, velZ = playerIn.getLookVec().xCoord/2;
+			double velX = (double)(-MathHelper.sin(playerIn.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float)Math.PI) * f);
+			double velZ = (double)( MathHelper.cos(playerIn.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float)Math.PI) * f);
+			double velY = (double)(-MathHelper.sin((playerIn.rotationPitch) / 180.0F * (float)Math.PI) * f);
+			
+			switch(getMode(itemStackIn)){
+			case MODE_LAUNCH:
+				//launch the player up and forward at minimum 30 degrees regardless of look vector
+				if(velY < 0){
+					velY *= -1;//first invert direction
+				}
+				if(velY < 0.3){
+					//if you are looking straight ahead, this is zero
+					
+					velY = 0.3 + playerIn.jumpMovementFactor;//do a bit of a jump
+				}
+				break;
+			case MODE_LOOK:
+				//do nothing. leave y the same it is already following look vec
+				break;
+			case MODE_UP:
+				velX = 0;
+				velY = 0;
+				break;
+			case MODE_HOVER:
+				////mode hover does nothing on cast
+			break;
 			}
-			if(velY < 0.3){
-				//if you are looking straight ahead, this is zero
-				
-				velY = 0.3 + playerIn.jumpMovementFactor;//do a bit of a jump
-			}
-			break;
-		case MODE_LOOK:
-			//do nothing. leave y the same it is already following look vec
-			break;
-		case MODE_UP:
-			velX = 0;
-			velY = 0;
-			break;
-		case MODE_HOVER:
-			////mode hover does nothing on cast
-		break;
-		}
-		
-		playerIn.addVelocity(velX,velY,velZ); 
+			
+			playerIn.addVelocity(velX,velY,velZ); 
 
+		}
     	return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
+	
 	@Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
@@ -95,7 +93,12 @@ public class ItemWandLaunch extends ItemWandBase {
 	private int getMode(ItemStack stack){
 		if(!stack.hasTagCompound()){stack.setTagCompound(new NBTTagCompound());}
 		
-		return MODE_LAUNCH;//temporary hardest for now
+		if(!stack.getTagCompound().hasKey(NBT_MODE)){
+			return MODE_LAUNCH;//not set, dont return zero
+		}
+		else{
+			return stack.getTagCompound().getInteger(NBT_MODE);
+		}
 	}
 	private void setMode(ItemStack stack,int mode){
 		if(!stack.hasTagCompound()){stack.setTagCompound(new NBTTagCompound());}
@@ -106,7 +109,8 @@ public class ItemWandLaunch extends ItemWandBase {
 		int next = this.getMode(stack) + 1;
 		next++;
 		if(next == MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
-		
+
+		System.out.println(next+ "_toggle");
 		this.setMode(stack,next);
 	}
 	private float power(){

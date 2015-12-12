@@ -30,11 +30,12 @@ public class ItemWandBase extends Item{
 	public void addRecipe(){
 		
 	}
-	public void onCastSuccess(){
+	public void onCastSuccess(EntityPlayer playerIn){
 		
 		//sound and particle
+		playerIn.swingItem();
 	}
-	
+	//TODO: merge these two success together... consolidate. add .takesDamage flag? Do we need to extend from tools?
 	public void onUseSuccess(EntityPlayer player,ItemStack stack){
 		
 		stack.damageItem(1, player);

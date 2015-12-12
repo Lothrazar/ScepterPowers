@@ -54,7 +54,7 @@ public class ItemWandCollect extends ItemWandBase {
 		}
 		
 		if(moved > 0){
-			this.onCastSuccess();
+			//this.onCastSuccess();
 		}
 	}
 	
