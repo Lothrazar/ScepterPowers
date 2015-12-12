@@ -22,6 +22,10 @@ public class ItemWandBase extends Item{
 	public void addRecipe(){
 		
 	}
+	public void onCastSuccess(){
+		
+		//sound and particle
+	}
 	
 	public void onUseSuccess(EntityPlayer player,ItemStack stack){
 		
