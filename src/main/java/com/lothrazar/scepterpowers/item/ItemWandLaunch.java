@@ -64,7 +64,11 @@ public class ItemWandLaunch extends BaseWand {
 				break;
 			case MODE_UP:
 				velX = 0;
-				velY = 0;
+				velZ = 0;
+				if(velY < 0){
+					velY *= -1;//make it always up never down
+				}
+				velY *= (power()/2);
 				break;
 			case MODE_HOVER:
 				////mode hover does nothing on cast
@@ -75,6 +79,7 @@ public class ItemWandLaunch extends BaseWand {
 
 			this.onSuccess(playerIn, stack);
 		}
+		
     	return super.onItemRightClick(stack, worldIn, playerIn);
     }
 	
@@ -115,7 +120,7 @@ public class ItemWandLaunch extends BaseWand {
 	private void toggleMode(ItemStack stack){
 		int next = this.getMode(stack) + 1;
 
-		if(next >= MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
+		if(next > MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
 
 		System.out.println(next+ "_toggle");
 		
