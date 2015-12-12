@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 public class UtilMoveBlock 
 { 
 	public static ArrayList<Block> ignoreList = new ArrayList<Block>();
-	private static String ignoreListFromConfig = "";
+	//private static String ignoreListFromConfig = "";
 	 
 	private static void translateCSV()
 	{
@@ -36,11 +36,11 @@ public class UtilMoveBlock
 			ignoreList.add(Blocks.skull);
 		}
 	}
-	
+	/*
 	public static void seIgnoreBlocksFromString(String csv)
 	{ 
 		ignoreListFromConfig = csv;
-	} 
+	} */
  
 	public static boolean moveBlockTo(World world, EntityPlayer player,BlockPos pos, BlockPos posMoveToHere)
 	{

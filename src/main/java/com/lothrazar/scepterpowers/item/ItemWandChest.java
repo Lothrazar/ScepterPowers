@@ -6,16 +6,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import com.lothrazar.scepterpowers.ItemRegistry;
-import com.lothrazar.scepterpowers.UtilMoveBlock;
 
 public class ItemWandChest extends ItemWandBase {
-
 
 	public static int DURABILITY = 999;
 	public ItemWandChest() {
@@ -27,9 +23,7 @@ public class ItemWandChest extends ItemWandBase {
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 		//imported from my old mod https://github.com/PrinceOfAmber/SamsPowerups/blob/b02f6b4243993eb301f4aa2b39984838adf482c1/src/main/java/com/lothrazar/samscontent/item/ItemChestSackEmpty.java
-		//if(worldIn.isRemote == false){
-		
-	 //TileEntityChest x;
+	
 		if(worldIn.getTileEntity(pos) == null || worldIn.getTileEntity(pos) instanceof IInventory == false){return false;}
 			
 		
@@ -107,5 +101,4 @@ public class ItemWandChest extends ItemWandBase {
  
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     } 
-
 }

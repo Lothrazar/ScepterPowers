@@ -1,7 +1,6 @@
 package com.lothrazar.scepterpowers.block;
 
 import java.util.Random;
-import com.lothrazar.scepterpowers.ModScepterPowers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

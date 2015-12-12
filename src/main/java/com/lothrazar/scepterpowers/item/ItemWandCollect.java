@@ -1,6 +1,7 @@
 package com.lothrazar.scepterpowers.item;
 
 import java.util.List;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,7 +16,9 @@ import com.lothrazar.scepterpowers.util.Vector3;
 
 public class ItemWandCollect extends ItemWandBase {
 
-	// TODO pulls EntityItems nearby towards the player on each use
+	//toggle on/off
+	
+	public static String NBT_ONOFF = "on_off";
 	public static int DURABILITY = 999;
 	public ItemWandCollect(){
 		super(DURABILITY);
@@ -24,6 +27,12 @@ public class ItemWandCollect extends ItemWandBase {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ){
 
+		cast(worldIn,pos);
+		
+    	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
+    }
+	
+	private void cast(World worldIn, BlockPos pos){
 		int radius = 20;
 		
 		int x = pos.getX(), y = pos.getY(), z = pos.getZ();
@@ -39,10 +48,19 @@ public class ItemWandCollect extends ItemWandBase {
 		if(moved > 0){
 			this.onCastSuccess();
 		}
+	}
+	
+	/**
+     * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
+     * update it's contents.
+     */
+	@Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    {
+		cast(worldIn,entityIn.getPosition());
 		
-    	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
+    	super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
     }
- 
 	@Override
 	public void addRecipe() {
 

@@ -10,8 +10,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import com.google.common.collect.ImmutableList;
-import com.lothrazar.scepterpowers.Const;
 
 public class ItemWandRotateProperty extends ItemWandBase {
 

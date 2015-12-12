@@ -56,7 +56,7 @@ public class ItemChestSack extends Item
     }
 	
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) 
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List<String>  list, boolean advanced) 
 	{
 		if(itemStack.getTagCompound() == null) {itemStack.setTagCompound(new NBTTagCompound());}
 	  
@@ -68,7 +68,9 @@ public class ItemChestSack extends Item
         String stacks = itemStack.getTagCompound().getString("stacks"); 
         if(stacks == null) {stacks=  "0";}
         	          
-        list.add("Stacks: " + EnumChatFormatting.GREEN +stacks);          
+        list.add("Stacks: " + EnumChatFormatting.GREEN +stacks);   
+        
+        super.addInformation(itemStack, player, list, advanced);
 	}   
 	  
 	public void sortToExisting(IInventory chest, ItemStack held)
@@ -83,7 +85,7 @@ public class ItemChestSack extends Item
 		if(itemids == null){return;}
 		System.out.println("itemids not null");
  
-  		int totalItemsMoved = 0; 
+  		//int totalItemsMoved = 0; 
   		int totalSlotsFreed = 0;
   		
   		//boolean debug = false;
@@ -139,7 +141,7 @@ public class ItemChestSack extends Item
 
   					invItem.stackSize -= toDeposit;
 
-  					totalItemsMoved += toDeposit;
+  					//totalItemsMoved += toDeposit;
   					 
   					if(invItem.stackSize <= 0)//because of calculations above, should not be below zero
   					{
@@ -163,7 +165,7 @@ public class ItemChestSack extends Item
 		
 		if( totalSlotsFreed > 0 ) 
 		{
-			String msg = "Sack Sort deposited " + totalItemsMoved + " items."; 
+			//String msg = "Sack Sort deposited " + totalItemsMoved + " items."; 
 		 
 			//dont do sound, there is already a sound played from hitting the block
 			//event.entityPlayer.playSound("random.bowhit1",5, 5);
