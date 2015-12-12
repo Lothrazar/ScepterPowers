@@ -27,6 +27,7 @@ public class ItemWandLaunch extends ItemWandBase {
 		
 		if(playerIn.isSneaking()){
 			this.toggleMode(itemStackIn);
+			this.onSuccess(playerIn, itemStackIn);
 		}
 		else{
 			
@@ -67,6 +68,7 @@ public class ItemWandLaunch extends ItemWandBase {
 			
 			playerIn.addVelocity(velX,velY,velZ); 
 
+			this.onSuccess(playerIn, itemStackIn);
 		}
     	return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }

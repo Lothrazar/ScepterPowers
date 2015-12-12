@@ -30,7 +30,7 @@ public class ItemWandRotateProperty extends ItemWandBase {
 		if(clicked.getBlock().rotateBlock(worldIn, pos, side)){
 			//for example, BlockMushroom.rotateBlock uses this, and hay bales use it to swap the 'axis'
 			System.out.println("rotateBlock success");
-			this.onUseSuccess(playerIn, stack);
+			this.onSuccess(playerIn, stack);
 		}
 		else{
 			System.out.println("rotateBlock FAILS -> look into properties");

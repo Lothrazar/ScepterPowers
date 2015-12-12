@@ -10,12 +10,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWandBase extends Item{
 
+	protected EnumParticleTypes sparkle = EnumParticleTypes.REDSTONE;
+	protected String sound = null;
+	//TODO: functions to set these, or maybe a constroctur particle input?
 	public ItemWandBase(int uses){
 		this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setMaxStackSize(1);
@@ -28,18 +32,37 @@ public class ItemWandBase extends Item{
 		super.addInformation(stack, playerIn, tooltip, advanced);
     }
 	public void addRecipe(){
-		
+		//some have no recipe
 	}
-	public void onCastSuccess(EntityPlayer playerIn){
-		
-		//sound and particle
+
+	public void onSuccess(EntityPlayer playerIn,ItemStack stack,BlockPos pos){
+		stack.damageItem(1, playerIn);
 		playerIn.swingItem();
-	}
-	//TODO: merge these two success together... consolidate. add .takesDamage flag? Do we need to extend from tools?
-	public void onUseSuccess(EntityPlayer player,ItemStack stack){
 		
-		stack.damageItem(1, player);
+		if(sparkle != null){
+			this.spawnParticle(playerIn.worldObj, pos.getX(), pos.getY(), pos.getZ());
+		}
+		if(sound != null){
+			playerIn.worldObj.playSoundAtEntity(playerIn, sound, 1.0F, 1.0F);
+		}
 	}
+	
+	public void onSuccess(EntityPlayer playerIn,ItemStack stack){
+		this.onSuccess(playerIn, stack,playerIn.getPosition());
+	}
+	private void spawnParticle(World world,  double x, double y, double z)
+	{ 
+		//http://www.minecraftforge.net/forum/index.php?topic=9744.0
+		for(int countparticles = 0; countparticles <= 12; ++countparticles)
+		{
+			world.spawnParticle(sparkle, x + (world.rand.nextDouble() - 0.5D) * (double)0.8, y + world.rand.nextDouble() * (double)1.5 - (double)0.1, z + (world.rand.nextDouble() - 0.5D) * (double)0.8
+					, 0.0D, 0.0D, 0.0D);
+		}
+	}
+	
+	
+	
+	
 	
 	
 	//TODO: these mods are just examples of what we MIGHT use.

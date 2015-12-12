@@ -29,7 +29,7 @@ public class ItemWandPiston extends ItemWandBase{
 		if(resultPosition != null){
 			//then it was a success
 			spawnParticle(worldIn, EnumParticleTypes.CRIT_MAGIC, resultPosition); 
-			this.onUseSuccess(playerIn, stack);
+			this.onSuccess(playerIn, stack);
 		}
 			
 

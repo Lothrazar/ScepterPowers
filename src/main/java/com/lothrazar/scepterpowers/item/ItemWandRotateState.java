@@ -54,7 +54,7 @@ public class ItemWandRotateState extends ItemWandBase {
 	
 		if(nextState != null){
 			worldIn.setBlockState(pos, nextState, Const.NOTIFY);
-			this.onUseSuccess(playerIn, stack);
+			this.onSuccess(playerIn, stack);
 		}
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 

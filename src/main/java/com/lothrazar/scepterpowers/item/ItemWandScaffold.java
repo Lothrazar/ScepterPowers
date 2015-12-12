@@ -23,7 +23,7 @@ public class ItemWandScaffold extends ItemWandBase {
 		
 		if(worldIn.setBlockState(offset, BlockRegistry.block_fragile.getDefaultState())){
 
-			this.onUseSuccess(playerIn, stack);
+			this.onSuccess(playerIn, stack);
 		}
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
