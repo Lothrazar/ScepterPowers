@@ -1,6 +1,6 @@
 package com.lothrazar.scepterpowers.item;
 
-public class ItemWandCarbon  extends ItemWandBase{
+public class ItemWandCarbon  extends BaseWand{
 
 	public ItemWandCarbon(int uses) {
 		super(uses);

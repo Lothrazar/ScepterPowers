@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.BlockRegistry;
 
-public class ItemWandScaffold extends ItemWandBase {
+public class ItemWandScaffold extends BaseWand {
 
 	public static int DURABILITY = 999;
 	public ItemWandScaffold(){

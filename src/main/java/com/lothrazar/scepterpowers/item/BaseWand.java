@@ -15,12 +15,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemWandBase extends Item{
+public class BaseWand extends Item{
 
 	protected EnumParticleTypes sparkle = EnumParticleTypes.REDSTONE;
 	protected String sound = null;
 	//TODO: functions to set these, or maybe a constroctur particle input?
-	public ItemWandBase(int uses){
+	public BaseWand(int uses){
 		this.setCreativeTab(ModScepterPowers.tabSamsContent);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(uses);

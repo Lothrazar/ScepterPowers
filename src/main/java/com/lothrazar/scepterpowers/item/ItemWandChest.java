@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import com.lothrazar.scepterpowers.ItemRegistry;
 
-public class ItemWandChest extends ItemWandBase {
+public class ItemWandChest extends BaseWand {
 
 	public static int DURABILITY = 999;
 	public ItemWandChest() {

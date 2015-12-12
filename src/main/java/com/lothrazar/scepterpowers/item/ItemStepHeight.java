@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemStepHeight extends ItemWandBase {
+public class ItemStepHeight extends BaseWand {
 
 	//toggle on/off
 	

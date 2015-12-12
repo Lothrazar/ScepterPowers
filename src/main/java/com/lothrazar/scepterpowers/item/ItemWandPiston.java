@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.UtilMoveBlock;
 
-public class ItemWandPiston extends ItemWandBase{
+public class ItemWandPiston extends BaseWand{
 
 	public static int DURABILITY = 999;
 	public ItemWandPiston()

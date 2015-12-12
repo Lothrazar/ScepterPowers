@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.google.common.collect.ImmutableList;
 import com.lothrazar.scepterpowers.Const;
 
-public class ItemWandRotateState extends ItemWandBase {
+public class ItemWandRotateState extends BaseWand {
 
 	public static int DURABILITY = 999;
 	//this item is creative only since it hits ALL block states

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.lothrazar.scepterpowers.util.Vector3;
 
-public class ItemWandCollect extends ItemWandBase {
+public class ItemWandCollect extends BaseWand {
 
 	//toggle on/off
 	

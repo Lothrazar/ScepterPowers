@@ -14,22 +14,27 @@ public class ItemRegistry {
 	public static ItemWandRotateState wand_rotate_creative;
 	public static ItemWandRotateProperty wand_rotate_survival;
 	public static ItemWandChest wand_chest;
-	public static ItemChestSack item_chestsack;
 	public static ItemWandCollect wand_collect;
 	public static ItemStepHeight wand_step;
 	public static ItemWandLaunch wand_launch;
+
+	public static ItemChestSack item_chestsack;
+	public static ItemPaperCarbon carbon_paper;
 	
 	public static void registerItem(Item item, String name) {
 		item.setUnlocalizedName(name);
 		GameRegistry.registerItem(item, name);
 		items.add(item);
 	}
-	public static void registerWand(ItemWandBase item, String name) {
+	public static void registerWand(BaseWand item, String name) {
 		registerItem(item,name);
 		item.addRecipe();
 	}
 
 	public static void register() {
+		carbon_paper = new ItemPaperCarbon();
+		registerItem(carbon_paper, "carbon_paper");
+		
 		wand_launch = new ItemWandLaunch();
 		registerWand(wand_launch, "wand_launch");
 

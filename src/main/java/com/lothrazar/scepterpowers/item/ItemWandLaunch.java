@@ -5,12 +5,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemWandLaunch extends ItemWandBase {
+public class ItemWandLaunch extends BaseWand {
 
 	public static int DURABILITY = 999;
 	public ItemWandLaunch(){
@@ -23,11 +25,14 @@ public class ItemWandLaunch extends ItemWandBase {
 	private final static int MODE_HOVER = 4;
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn){
+	public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn){
 		
 		if(playerIn.isSneaking() && worldIn.isRemote == false){
-			this.toggleMode(itemStackIn);
-			this.onSuccess(playerIn, itemStackIn);
+			this.toggleMode(stack);
+			this.onSuccess(playerIn, stack);
+			
+			//ready for lang file support
+			playerIn.addChatComponentMessage(new ChatComponentText("wand.launch.mode"+this.getMode(stack)));
 		}
 		else{
 			
@@ -42,7 +47,7 @@ public class ItemWandLaunch extends ItemWandBase {
 			double velZ = (double)( MathHelper.cos(playerIn.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float)Math.PI) * f);
 			double velY = (double)(-MathHelper.sin((playerIn.rotationPitch) / 180.0F * (float)Math.PI) * f);
 			
-			switch(getMode(itemStackIn)){
+			switch(getMode(stack)){
 			case MODE_LAUNCH:
 				//launch the player up and forward at minimum 30 degrees regardless of look vector
 				if(velY < 0){
@@ -68,9 +73,9 @@ public class ItemWandLaunch extends ItemWandBase {
 			
 			playerIn.addVelocity(velX,velY,velZ); 
 
-			this.onSuccess(playerIn, itemStackIn);
+			this.onSuccess(playerIn, stack);
 		}
-    	return super.onItemRightClick(itemStackIn, worldIn, playerIn);
+    	return super.onItemRightClick(stack, worldIn, playerIn);
     }
 	
 	@Override
@@ -113,6 +118,7 @@ public class ItemWandLaunch extends ItemWandBase {
 		if(next >= MODE_HOVER){next = MODE_LAUNCH;}//modulo increment
 
 		System.out.println(next+ "_toggle");
+		
 		this.setMode(stack,next);
 	}
 	private float power(){

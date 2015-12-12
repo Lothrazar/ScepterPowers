@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemWandRotateProperty extends ItemWandBase {
+public class ItemWandRotateProperty extends BaseWand {
 
 	public static int DURABILITY = 999;
 	public ItemWandRotateProperty(){
