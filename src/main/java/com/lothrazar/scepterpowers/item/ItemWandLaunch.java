@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,12 +26,14 @@ public class ItemWandLaunch extends BaseWand {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn){
 		
-		if(playerIn.isSneaking() && worldIn.isRemote == false){
-			this.toggleMode(stack);
+		if(playerIn.isSneaking() ){
+			if(worldIn.isRemote == false){
+				this.toggleMode(stack);
+			}
 			this.onSuccess(playerIn, stack);
 			
 			//ready for lang file support
-			playerIn.addChatComponentMessage(new ChatComponentText("wand.launch.mode"+this.getMode(stack)));
+			playerIn.addChatComponentMessage(new ChatComponentText( this.getModeName(this.getMode(stack))));
 		}
 		else{
 			
@@ -82,6 +83,9 @@ public class ItemWandLaunch extends BaseWand {
 		
     	return super.onItemRightClick(stack, worldIn, playerIn);
     }
+	private String getModeName(int mode){
+		return "wand.launch.mode"+mode;
+	}
 	
 	@Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
@@ -95,11 +99,8 @@ public class ItemWandLaunch extends BaseWand {
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
     {
-		int mode = this.getMode(stack);
-		
-		tooltip.add("MODE:"+mode);//TODO; real lang text
-		
-		
+		tooltip.add(this.getModeName(this.getMode(stack)));
+
 		super.addInformation(stack, playerIn, tooltip, advanced);
     }
 	private int getMode(ItemStack stack){
