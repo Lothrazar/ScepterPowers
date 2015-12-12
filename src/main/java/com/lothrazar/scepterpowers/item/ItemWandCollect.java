@@ -28,12 +28,12 @@ public class ItemWandCollect extends ItemWandBase {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ){
 
-		cast(worldIn,pos);
+		cast(stack,playerIn,worldIn,pos);
 		
     	return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ); 
     }
 	
-	private void cast(World worldIn, BlockPos pos){
+	private void cast(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos){
 		int radius = 20;
 		
 		int x = pos.getX(), y = pos.getY(), z = pos.getZ();
@@ -54,7 +54,7 @@ public class ItemWandCollect extends ItemWandBase {
 		}
 		
 		if(moved > 0){
-			//this.onCastSuccess();
+			this.onSuccess(playerIn, stack, pos);
 		}
 	}
 	
@@ -70,7 +70,8 @@ public class ItemWandCollect extends ItemWandBase {
 		if(entityIn instanceof EntityPlayer && ((EntityPlayer)entityIn).inventory.currentItem == itemSlot){
 
 			//or we could also require its in armor slot or something too
-			cast(worldIn,entityIn.getPosition());
+			 
+			cast(stack,((EntityPlayer)entityIn),worldIn,entityIn.getPosition());
 		}
 		
     	super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
