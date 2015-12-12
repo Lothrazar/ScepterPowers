@@ -1,5 +1,6 @@
 package com.lothrazar.scepterpowers.item;
 
+import java.util.List;
 import com.lothrazar.scepterpowers.ModScepterPowers;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -10,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemWandBase extends Item{
 
@@ -18,7 +21,12 @@ public class ItemWandBase extends Item{
 		this.setMaxStackSize(1);
 		this.setMaxDamage(uses);
 	}
-	
+	@SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+    {
+		
+		super.addInformation(stack, playerIn, tooltip, advanced);
+    }
 	public void addRecipe(){
 		
 	}
