@@ -1,18 +1,20 @@
 package com.lothrazar.scepterpowers.proxy;
 
 import com.lothrazar.scepterpowers.ItemRegistry;
+import com.lothrazar.scepterpowers.ModScepterPowers;
 import com.lothrazar.scepterpowers.projectile.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.init.Items;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy 
 {   
-
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
     public void register() 
     {  
@@ -28,7 +30,8 @@ public class ClientProxy extends CommonProxy
     	RenderingRegistry.registerEntityRenderingHandler(EntitySnowballBolt.class, new RenderSnowball(rm, ItemRegistry.ender_snow, ri));
     	RenderingRegistry.registerEntityRenderingHandler(EntityTorchBolt.class, new RenderSnowball(rm, ItemRegistry.ender_torch, ri));
     	*/
-    	RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderSnowball(rm, Items.stick, ri));
+    	RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderSnowball(rm, EntityFishingBolt.item, ri));
+    	//RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderThrown(rm,  ri,new ResourceLocation(ModScepterPowers.MODID,"textures/items/ender_fishing.png")));
     	
     	/*
     	RenderingRegistry.registerEntityRenderingHandler(EntityShearingBolt.class, new RenderSnowball(rm, ItemRegistry.ender_wool, ri));
@@ -37,7 +40,18 @@ public class ClientProxy extends CommonProxy
     	RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, new RenderSnowball(rm, ItemRegistry.ender_tnt_1, ri));
     	RenderingRegistry.registerEntityRenderingHandler(EntityBlazeBolt.class, new RenderSnowball(rm, ItemRegistry.ender_blaze, ri));
 */
-    }
-  
+    	ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 
+        String name;
+ 
+        for(Item i : ItemRegistry.items){
+        	name = ModScepterPowers.MODID+":" + i.getUnlocalizedName().replaceAll("item.", "");
+   			mesher.register(i, 0, new ModelResourceLocation( name , "inventory"));	 
+        }
+    	
+    	
+    	
+    	
+    	
+    }
 }

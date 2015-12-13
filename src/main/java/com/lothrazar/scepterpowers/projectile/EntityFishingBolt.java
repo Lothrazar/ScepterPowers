@@ -5,13 +5,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class EntityFishingBolt extends EntityThrowable
+public class EntityFishingBolt extends EntityThrowable //still no reason to use EntityThrowable..??
 {
     public EntityFishingBolt(World worldIn)
     {
@@ -27,7 +28,9 @@ public class EntityFishingBolt extends EntityThrowable
     {
         super(worldIn, x, y, z);
     }
-
+    public static final String name = "fishingbolt";
+    public static final String name_item = "fishingbolt_item";
+    public static Item item = null;
 	static final double plainChance = 60;
 	static final double salmonChance = 25 + plainChance;//so it is between 60 and 85
 	static final double clownfishChance = 2 + salmonChance;//so between 85 and 87

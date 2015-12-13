@@ -22,7 +22,7 @@ public class ItemRegistry {
 	public static ItemChestSack item_chestsack;
 	public static ItemPaperCarbon carbon_paper;
 	
-	private static void registerItem(Item item, String name) {
+	public static void registerItem(Item item, String name) {
 		item.setUnlocalizedName(name);
 		GameRegistry.registerItem(item, name);
 		items.add(item);
