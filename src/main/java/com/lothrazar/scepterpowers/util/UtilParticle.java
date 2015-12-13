@@ -1,5 +1,7 @@
 package com.lothrazar.scepterpowers.util;
 
+import com.lothrazar.scepterpowers.ModScepterPowers;
+import com.lothrazar.scepterpowers.potion.MessagePotion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -22,5 +24,13 @@ public class UtilParticle {
 	public static void spawnParticle(World world,EnumParticleTypes sparkle, BlockPos pos)
 	{ 
 		spawnParticle(world,sparkle,pos.getX(),pos.getY(),pos.getZ());
+	}
+	
+	public static void spawnParticlePacket(BlockPos position, int particleID)
+	{
+		//this. fires only on server side. so send packet for client to spawn particles and so on
+		ModScepterPowers.network.sendToAll(new MessagePotion(position, particleID));
+    	
+		
 	}
 }

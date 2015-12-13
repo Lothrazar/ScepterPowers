@@ -18,6 +18,8 @@ public class ItemRegistry {
 	public static ItemStepHeight wand_step;
 	public static ItemWandLaunch wand_launch;
 	public static ItemWandFishing wand_fishing;
+	public static ItemWandProjectile wand_fire;
+
 	
 	public static ItemChestSack item_chestsack;
 	public static ItemPaperCarbon carbon_paper;
@@ -33,6 +35,9 @@ public class ItemRegistry {
 	}
 
 	public static void register() {
+		wand_fire = new ItemWandProjectile();
+		registerWand(wand_fire, "wand_fire");
+		
 		wand_fishing = new ItemWandFishing();
 		registerWand(wand_fishing, "wand_fishing");
 		

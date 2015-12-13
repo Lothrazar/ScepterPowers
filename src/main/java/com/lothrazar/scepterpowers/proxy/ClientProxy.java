@@ -20,6 +20,9 @@ public class ClientProxy extends CommonProxy
     {  
        	RenderManager rm = Minecraft.getMinecraft().getRenderManager();
     	RenderItem ri = Minecraft.getMinecraft().getRenderItem();
+
+    	RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderSnowball(rm, EntityFishingBolt.item, ri));
+    	RenderingRegistry.registerEntityRenderingHandler(EntityBlazeBolt.class, new RenderSnowball(rm, EntityBlazeBolt.item, ri));
     	
     	//works similar to vanilla which is like
     	//Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntitySoulstoneBolt.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ItemRegistry.soulstone, Minecraft.getMinecraft().getRenderItem()));
@@ -30,7 +33,6 @@ public class ClientProxy extends CommonProxy
     	RenderingRegistry.registerEntityRenderingHandler(EntitySnowballBolt.class, new RenderSnowball(rm, ItemRegistry.ender_snow, ri));
     	RenderingRegistry.registerEntityRenderingHandler(EntityTorchBolt.class, new RenderSnowball(rm, ItemRegistry.ender_torch, ri));
     	*/
-    	RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderSnowball(rm, EntityFishingBolt.item, ri));
     	//RenderingRegistry.registerEntityRenderingHandler(EntityFishingBolt.class, new RenderThrown(rm,  ri,new ResourceLocation(ModScepterPowers.MODID,"textures/items/ender_fishing.png")));
     	
     	/*
