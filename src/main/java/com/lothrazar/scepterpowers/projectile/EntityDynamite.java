@@ -2,6 +2,7 @@ package com.lothrazar.scepterpowers.projectile;
 
 import net.minecraft.entity.EntityLivingBase;  
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.Item;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -28,7 +29,10 @@ public class EntityDynamite extends EntityThrowable
     {
         super(worldIn, x, y, z);
     }
- 
+
+    public static final String name = "tntbolt";
+    public static final String name_item = name+"_item";
+    public static Item item = null;
     @Override
     protected void onImpact(MovingObjectPosition mop)
     { 

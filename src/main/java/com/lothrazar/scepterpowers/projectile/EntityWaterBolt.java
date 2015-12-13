@@ -7,6 +7,7 @@ import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -33,6 +34,9 @@ public class EntityWaterBolt extends EntityThrowable
         super(worldIn, x, y, z);
     }
 
+    public static final String name = "waterbolt";
+    public static final String name_item = name+"_item";
+    public static Item item = null;
     @Override
     protected void onImpact(MovingObjectPosition mop)
     {

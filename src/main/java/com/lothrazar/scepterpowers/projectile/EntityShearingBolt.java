@@ -31,6 +31,9 @@ public class EntityShearingBolt extends EntityThrowable
         super(worldIn, x, y, z);
     }
 
+    public static final String name = "shearingbolt";
+    public static final String name_item = name+"_item";
+    public static Item item = null;
 	@Override
 	protected void onImpact(MovingObjectPosition mop) 
 	{

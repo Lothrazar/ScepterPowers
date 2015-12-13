@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "samsprojectiles:items/ender_blaze"
+        "layer0": "scepterpowers:items/frostbolt_item"
     },
     "display": {
         "thirdperson": {
