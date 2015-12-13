@@ -34,6 +34,7 @@ public class ModScepterPowers
     public void preInit(FMLPreInitializationEvent  event)
     {
 		logger = event.getModLog();  
+		//TODO: config
 		//cfg = new ConfigFile(new Configuration(event.getSuggestedConfigurationFile()));
     }
 	
@@ -42,5 +43,8 @@ public class ModScepterPowers
     {
 		ItemRegistry.register();
 		BlockRegistry.register();
+		ProjectileRegistry.register();
+		
+		proxy.register();
     }
 }

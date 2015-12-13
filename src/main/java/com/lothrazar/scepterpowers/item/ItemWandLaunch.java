@@ -83,6 +83,7 @@ public class ItemWandLaunch extends BaseWand {
 		
     	return super.onItemRightClick(stack, worldIn, playerIn);
     }
+	
 	private String getModeName(int mode){
 		return "wand.launch.mode"+mode;
 	}

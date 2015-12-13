@@ -10,7 +10,7 @@ public class BlockRegistry {
 
 	public static BlockFragile block_fragile;
 	
-	public static void registerBlock(Block s, String name) {
+	private static void registerBlock(Block s, String name) {
 		s.setUnlocalizedName(name);
 
 		GameRegistry.registerBlock(s, name);

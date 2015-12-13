@@ -2,6 +2,7 @@ package com.lothrazar.scepterpowers.item;
 
 import java.util.List;
 import com.lothrazar.scepterpowers.ModScepterPowers;
+import com.lothrazar.scepterpowers.util.UtilParticle;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,7 +41,7 @@ public class BaseWand extends Item{
 		playerIn.swingItem();
 		
 		if(sparkle != null){
-			this.spawnParticle(playerIn.worldObj, pos.getX(), pos.getY(), pos.getZ());
+			UtilParticle.spawnParticle(playerIn.worldObj,sparkle, pos.getX(), pos.getY(), pos.getZ());
 		}
 		if(sound != null){
 			playerIn.worldObj.playSoundAtEntity(playerIn, sound, 1.0F, 1.0F);
@@ -50,18 +51,7 @@ public class BaseWand extends Item{
 	public void onSuccess(EntityPlayer playerIn,ItemStack stack){
 		this.onSuccess(playerIn, stack,playerIn.getPosition());
 	}
-	private void spawnParticle(World world,  double x, double y, double z)
-	{ 
-		//http://www.minecraftforge.net/forum/index.php?topic=9744.0
-		for(int countparticles = 0; countparticles <= 12; ++countparticles)
-		{
-			world.spawnParticle(sparkle, x + (world.rand.nextDouble() - 0.5D) * (double)0.8, y + world.rand.nextDouble() * (double)1.5 - (double)0.1, z + (world.rand.nextDouble() - 0.5D) * (double)0.8
-					, 0.0D, 0.0D, 0.0D);
-		}
-	}
-	
-	
-	
+
 	
 	
 	
